@@ -28,3 +28,14 @@ docker-compose up --build
 ```text
 http://localhost:8000/docs
 ```
+
+### Retrieval Experiments
+
+The platform includes experiments comparing:
+
+- BM25 keyword search
+- Dense vector retrieval using sentence embeddings
+- Hybrid retrieval approaches
+
+Results showed that hybrid retrieval produced the most relevant context for customer-support question answering and improved overall answer quality.
+
