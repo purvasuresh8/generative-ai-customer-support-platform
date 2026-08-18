@@ -4,11 +4,16 @@ An AI-powered customer support platform built with FastAPI, OpenAI, Docker, and 
 
 ## Features
 
-- AI-powered support assistant
-- Ticket management
-- Feedback collection
-- Response evaluation
+- FastAPI REST APIs
+- LLM-powered customer support assistant
+- Context-aware question answering
+- Information retrieval for support knowledge
+- Prompt engineering
+- Feedback collection and analysis
+- Response evaluation metrics
+- Retrieval experimentation
 - Dockerized deployment
+- Automated test coverage
 
 ## Run Locally
 
@@ -29,13 +34,5 @@ docker-compose up --build
 http://localhost:8000/docs
 ```
 
-### Retrieval Experiments
 
-The platform includes experiments comparing:
-
-- BM25 keyword search
-- Dense vector retrieval using sentence embeddings
-- Hybrid retrieval approaches
-
-Results showed that hybrid retrieval produced the most relevant context for customer-support question answering and improved overall answer quality.
 
