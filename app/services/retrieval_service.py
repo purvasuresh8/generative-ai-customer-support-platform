@@ -1,47 +1,32 @@
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
-
 class RetrievalService:
 
     def __init__(self):
-
         self.documents = [
             "Customers can reset passwords from Account Settings.",
             "Refund requests must be submitted within 30 days.",
-            "Premium users receive priority support."
+            "Premium users receive priority support.",
+            "Users can update profile information from the dashboard."
         ]
 
-        self.model = SentenceTransformer(
-            "all-MiniLM-L6-v2"
-        )
+    def retrieve(self, query):
 
-        embeddings = self.model.encode(
-            self.documents
-        )
+        query_words = query.lower().split()
 
-        self.index = faiss.IndexFlatL2(
-            embeddings.shape[1]
-        )
+        matches = []
 
-        self.index.add(
-            np.array(embeddings).astype("float32")
-        )
+        for doc in self.documents:
+            score = sum(
+                1 for word in query_words
+                if word in doc.lower()
+            )
 
-    def retrieve(self, query, k=3):
+            matches.append((score, doc))
 
-        query_embedding = self.model.encode(
-            [query]
-        )
-
-        _, indices = self.index.search(
-            np.array(query_embedding).astype("float32"),
-            k
-        )
+        matches.sort(reverse=True)
 
         return [
-            self.documents[i]
-            for i in indices[0]
+            doc
+            for score, doc in matches[:3]
+            if score > 0
         ]
-        
         
