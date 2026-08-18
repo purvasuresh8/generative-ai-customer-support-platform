@@ -1,11 +1,7 @@
-from openai import OpenAI
-from app.core.config import OPENAI_API_KEY
+import ollama
 from app.services.retrieval_service import RetrievalService
 
-client = OpenAI(api_key=OPENAI_API_KEY)
-
 retriever = RetrievalService()
-
 
 def generate_response(message: str):
 
@@ -14,9 +10,7 @@ def generate_response(message: str):
     prompt = f"""
 You are a professional customer support assistant.
 
-Use ONLY the provided context when answering.
-
-Context:
+Support Knowledge:
 {chr(10).join(context)}
 
 Customer Query:
@@ -25,8 +19,8 @@ Customer Query:
 Answer professionally and clearly.
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
+    response = ollama.chat(
+        model="llama3.2",
         messages=[
             {
                 "role": "user",
@@ -35,5 +29,4 @@ Answer professionally and clearly.
         ]
     )
 
-    return response.choices[0].message.content
-    
+    return response["message"]["content"]
